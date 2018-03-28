@@ -11,7 +11,7 @@ These concepts build on what we learned in part I
 +====+============================================================================================================================+
 | 1  | Understand some applications of and basic fundamentals of **norms**                                                        |
 +----+----------------------------------------------------------------------------------------------------------------------------+
-| 2  | Extend the concept of a norm to cosign similarity                                                                          |
+| 2  | Extend the concept of a norm to cosine similarity                                                                          |
 +----+----------------------------------------------------------------------------------------------------------------------------+
 | 3  | Develop a familiarity with systems of equations and their linear algebra shorthand                                         |
 +----+----------------------------------------------------------------------------------------------------------------------------+
@@ -19,14 +19,15 @@ These concepts build on what we learned in part I
 Norms and other special matrices
 ---------------------------------
 
+Sometimes it is necessary to quantify the size of a vector. There is a specific function called a `called a norm <https://en.wikipedia.org/wiki/Norm_(mathematics)>`_ that serves this purpose. 
+
 .. figure:: vector.png
    :scale: 75%
    :align: center
    :alt: vector
    :figclass: align-center
 
-
-The norm of a vector :math:`\mathbf{x}` is defined by
+Here is an example of norm of a vector :math:`\mathbf{x}` is defined by
 
 .. math::
    ||\mathbf{x}|| = \sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}
@@ -37,23 +38,41 @@ The norm of a vector :math:`\mathbf{x}` is defined by
 5.47722557505
 5.47722557505
 
-The norm squared of a vector is just the vector dot product with itself
+The norm shown above is also known as Frobenius norm. The Frobenius
+norm, sometimes also called the Euclidean norm (a term unfortunately
+also used for the vector-norm), is norm of an matrix defined as the
+**square root of the sum of the absolute squares of its elements**.  The
+following is a generalized way to write many types of norms.
+
+.. math::
+   ||\mathbf{x}||_{p} =  \left( \sum_{i} |x_i|^{p} \right)^{\frac{1}{p}}
+
+
+
+* Norms are used to map vectors to non-negative values
+* The Euclidean norm (where :math:`p=2` ) of a vector measures the distance from the origin in Euclidean space
+
+
+There are many nice properties of the Euclidean norm.  The norm squared of a vector is just the vector
+dot product with itself
 
 .. math::
 
    ||x||^2 = x \cdot x
 
-print(np.linalg.norm(x)**2)
-print(np.dot(x,x))
+>>> print(np.linalg.norm(x)**2)
+>>> print(np.dot(x,x))
+30
+30
 
-The distance between two vectors is the norm of the difference.
+.. important:: The distance between two vectors is the norm of the difference.
 
-.. math::
+   .. math::
 
-   d(x,y) = ||x-y||
+      d(x,y) = ||x-y||
 
->>> np.linalg.norm(x-y)
-4.472
+   >>> np.linalg.norm(x-y)
+   4.472
 
 **Cosine Similarity** is the cosine of the angle between the two vectors give by
 

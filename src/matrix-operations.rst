@@ -8,7 +8,7 @@ Learning objectives:
   1. Understand the dimensional requirements for matrix multiplication
   2. Understand and be able to execute **elementwise** arithmetric operators in NumPy
   3. Become even more comfortable with vectors and matrices in NumPy
-  
+
 Quick reference
 ---------------------
 
@@ -43,16 +43,16 @@ It is convention to represent vectors as column matrices.  We are
 explicit in this representation in that we define two axes even
 through the number of columns is only one.
 
-A **column matrix** in NumPy.  
+A **column matrix** in NumPy.
 
 .. math::
-    
+
     \mathbf{x} =
     \begin{pmatrix}
     3  \\
     4  \\
     5  \\
-    6  
+    6
     \end{pmatrix}
 
 >>> x = np.array([[3,4,5,6]]).T
@@ -63,7 +63,7 @@ The ``.T`` indicates a **transpose** operation.  In the case of
 vectors we go from a rowwise representation to a columnwise one and
 vice versa.  We will spend more time on transposes in the next
 section.
-	  
+
 A **row matrix** in NumPy.
 
 .. math::
@@ -96,7 +96,7 @@ data and more..
 If we wanted to discover patterns in :math:`\mathbf{X}` then we could
 take an such as clustering, which would be an example of
 **unsupervised learning**.  Patterns in this case would likely
-correspond to mountain ranges and and meteorlogical or oceananic events..
+correspond to mountain ranges and meteorological or oceanic events.
 
 If we think of the features of a matrix as column vectors.
 
@@ -175,7 +175,7 @@ array([ 34.66666667,  16.33333333,  13.66666667,  12.66666667])
 Basic matrix operations
 -------------------------
 
-This has already been stated once.  But since it is important lets say it a different way. 
+This has already been stated once.  But since it is important lets say it a different way.
 
 .. note:: In order to multiply two matrices, they must be
           **conformable** such that the number of columns of the first
@@ -186,22 +186,21 @@ This has already been stated once.  But since it is important lets say it a diff
 When we say multiply two matrices it does not mean multiply in the sense that you might think.
 The **matrix product** of two matrices is another matrix.
 
-If we have two vectors :math:`\mathbf{x}` and :math:`\mathbf{y}` of the same length :math:`(n)`, then the **dot product** is give by
+If we have two vectors :math:`\mathbf{x}` and :math:`\mathbf{y}` of the same length :math:`(n)`, then the **dot product** is given by
 
-.. math:: 
+.. math::
 
    \mathbf{x} \cdot \mathbf{y} = x_1y_1 + x_2y_2 + \cdots + x_ny_n
 
-
 .. important:: Arithmetic operators in NumPy work **elementwise**
-	       
+
 >>> a = np.array([3,4,5])
 >>> b = np.ones(3)
 >>> a - b
 array([ 2.,  3.,  4.])
 
-Something that can be tricky for people familar with other programming languages is that the * operator
-**does not** carry out a matrix product.  This is done with the 
+Something that can be tricky for people familiar with other programming languages is that the * operator
+**does not** carry out a matrix product.  This is done with the
 `dot <http://docs.scipy.org/doc/numpy/reference/generated/numpy.dot.html>`_ function.
 
 >>> a = np.array([[1,2],[3,4]])
@@ -220,14 +219,14 @@ array([[ 7, 10],
        [15, 22]])
 
 >>> np.dot(np.array([[1,2,3]]),np.array([[2,3,4]]))
-       
+
 The **dot product** is a very important concept that we will reuse many times going forward.  The dot product is generally written as
 
 .. math::
 
    a^{T} b
 
-when you write ``np.dot`` the NumPy package will sometime assume you mean to do this such as in the case of the above example.
+when you write ``np.dot`` the NumPy package will sometimes assume that you mean to do this such as in the case of the above example.
 
 >>> np.dot(np.array([1,2,3,4]), np.array([3,4,5,6]))
 50
@@ -236,10 +235,35 @@ array([[50]])
 
 The dot product is an essential building block of **matrix
 multiplication**. The table below shows that when we multiply two
-matrices the result is a table of dot products for pairs of vectors
+matrices. The result is a table of dot products for pairs of vectors
 making up the entries of each matrix.
-   
-Figuring out the shape of a matrix that gets
+
+First think about this in terms of square matrices and see if you can identify the pattern.
+
+
+Perform matrix multiplication on a square matrix.  This is how it works---code the pattern.
+
+
+.. math::
+
+    \begin{pmatrix}
+    a & b \\
+    c & d \\
+    \end{pmatrix}
+    \times
+    \begin{pmatrix}
+    e & f \\
+    g & h \\
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+    ae+bg & af+bh \\
+    ce+dg & cf+dh \\
+    \end{pmatrix}
+
+|
+
+Once you see what is happening this figure can help you understand how the pattern generalizes to different shape matrices.
 
 .. figure:: matrix-multiplication.png
    :scale: 65%
@@ -249,13 +273,15 @@ Figuring out the shape of a matrix that gets
 
 `<https://en.wikipedia.org/wiki/Matrix_multiplication>`_
 
-	      
+.. important:: There is a pattern to figure out the size of the resulting matrix.
+	  result = Num Rows in 1st matrix :math:`\times` Num Columns in 2nd Matrix
+
 .. admonition:: Questions
 
    1. Given the following code write the multiplication out on paper **and** run it Python to check your math
 
       >>> np.dot(np.array([[1,2,3]]),np.array([[2,3,4]]).T)
-		
+
    2. If we multiply a :math:`2 \times 3` matrix with a :math:`3 \times 1` matrix, the product matrix is :math:`2 \times 1`.
 
       Write an example of this on paper with simple numbers to see if you can understand why.
@@ -264,6 +290,8 @@ Figuring out the shape of a matrix that gets
 
 Special addition and multiplication operators
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Like in regular Python there is a special operator.
 
 >>> a = np.zeros((2,2),dtype='float')
 >>> a += 5
@@ -306,7 +334,7 @@ Common math functions
 ^^^^^^^^^^^^^^^^^^^^^
 
 >>> x = np.arange(1,5)
->>> np.sqrt(x) * np.pi 
+>>> np.sqrt(x) * np.pi
 array([ 3.14159265,  4.44288294,  5.44139809,  6.28318531])
 >>> 2**4
 16
@@ -326,10 +354,10 @@ Basic operations exercise
 .. admonition:: Exercise
 
    In the following table we have expression values for 5 genes at 4 time points.
-   These are completely made up data.  Although, some of the questions can be 
-   easily answered by looking at the data, microarray data generally come in much 
-   larger tables and if you can figure it out here the same code will work for an 
-   entire gene chip.  
+   These are completely made up data.  Although, some of the questions can be
+   easily answered by looking at the data, microarray data generally come in much
+   larger tables and if you can figure it out here the same code will work for an
+   entire gene chip.
 
    +------------+----------+----------+---------+----------+
    | Gene name  | 4h       | 12h      | 24h     | 48h      |
@@ -343,159 +371,23 @@ Basic operations exercise
    | CPOX       | 0.05     | 0.09     | 0.11    | 0.14     |
    +------------+----------+----------+---------+----------+
 
-   1. create a single array for the data (4x4)
-   2. find the mean expression value *per gene*
-   3. find the mean expression value *per time point*
-   4. which gene has the maximum mean expression value?
-   5. sort the gene names by the max expression value
+   1. Create a single array for the data (4x4)
+   2. Find the mean expression value *per gene*
+   3. Find the mean expression value *per time point*
 
-.. tip:: 
+   **Extra Credit**
+
+   4. Which gene has the maximum mean expression value?
+   5. Sort the gene names by the max expression value
+
+.. tip::
 
    >>> geneList = np.array([["A2M", "FOS", "BRCA2","CPOX"]])
    >>> values0  = np.array([[0.12,0.08,0.06,0.02]])
    >>> values1  = np.array([[0.01,0.07,0.11,0.09]])
    >>> values2  = np.array([[0.03,0.04,0.04,0.02]])
-   >>> values3  = np.array([]0.05,0.09,0.11,0.14]])
+   >>> values3  = np.array([[0.05,0.09,0.11,0.14]])
 
-Other important NumPy commands
------------------------------------
 
-Where
-^^^^^
 
->>> a = np.array([1,1,1,2,2,2,3,3,3])
->>> a[a>1]
-array([2, 2, 2, 3, 3, 3])
->>> a[a==3]
-array([3, 3, 3])
->>> np.where(a<3)
-(array([0, 1, 2, 3, 4, 5]),)
->>> np.where(a<3)[0]
-array([0, 1, 2, 3, 4, 5])
->>> np.where(a>9)
-(array([], dtype=int64),)
-
-Printing
-^^^^^^^^
-
->>> for row in x:
-...     print row
-... 
-[0 1 2 3]
-[4 5 6 7]
-[ 8  9 10 11]
-
->>> for element in x.flat:
-...     print(element)
-... 
-0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-
-Copying
-^^^^^^^^^
-
->>> a = np.array(['a','b','c'])
->>> b = a
->>> b[1] = 'z'
->>> a
-array(['a', 'z', 'c'], 
-      dtype='|S1')
-
->>> a = np.array(['a','b','c'])
->>> b = a.copy()
->>> b[1] = 'z'
->>> a
-array(['a', 'b', 'c'], 
-      dtype='|S1')
-
-Missing data
-^^^^^^^^^^^^
-
->>> import numpy as np
->>> a = np.array([[1,2,3],[4,5,np.nan],[7,8,9]])
->>> a
-array([[  1.,   2.,   3.],
-       [  4.,   5.,  nan],
-       [  7.,   8.,   9.]])
-       
->>> columnMean = np.nanmean(a,axis=0)
->>> columnMean
-array([ 4.,  5.,  6.])
->>> rowMean = np.nanmean(a,axis=1)
->>> rowMean
-array([ 2. ,  4.5,  8. ])
-
-Generating random numbers
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
->>> np.random.randint(0,10,5)      # random integers from a closed interval
-array([2, 8, 3, 7, 8])
->>> np.random.normal(0,1,5)        # random numbers from a Gaussian
-array([ 1.44660159, -0.35625249, -2.09994545,  0.7626487 ,  0.36353648])
->>> np.random.uniform(0,2,5)       # random numbers from a uniform distribution
-array([ 0.07477679,  0.36409135,  1.42847035,  1.61242304,  0.54228665])
-
-There are many other useful functions in `random <http://docs.scipy.org/doc/numpy/reference/generated/numpy.random.html>`_
-
-Convenience functions
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-There are a number of convenience functions to help create matrices
-
-.. tip:: 
-
-   >>> np.ones((3,2))
-   >>> np.zeros((3,2))
-   >>> np.eye(3)
-   >>> np.diag([1,2,3])
-   >>> np.fromfunction(lambda i, j: (i-2)**2+(j-2)**2, (5,5))
-
-Getting more comfortable
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-These are some of the things that will become second nature to you once you get a little more comfortable with NumPy
-
->>> n, nrows, ncols = 100, 10, 6
->>> xs = np.random.normal(n, 15, size=(nrows, ncols)).astype('int')
->>> xs
-array([[ 84, 108,  96,  93,  82, 115],
-[ 87,  70,  96, 132, 111, 108],
-[ 96,  85, 120,  72,  62,  66],
-[112,  86,  98,  86,  74,  98],
-[ 75,  91, 116, 105,  82, 122],
-[ 95, 119,  84,  89,  93,  87],
-[118, 113,  94,  89,  67, 107],
-[120, 105,  85, 100, 131, 120],
-[ 91, 137, 103,  94, 115,  92],
-[ 73,  98,  81, 106, 128,  75]])
-
-Index it with a list of integers
-
->>> print(xs[0, [1,2,4,5]])
-
-Boolean indexing
-
->>> print(xs[xs % 2 == 0])
-
-What does this do?
-
->>> xs[xs % 2 == 0] = 0
-
-Extracting lower triangular, diagonal and upper triangular matrices
-
->>> a = np.arange(16).reshape(4,4)
->>> print a, '\n'
->>> print np.tril(a, -1), '\n'
->>> print np.diag(np.diag(a)), '\n'
->>> print np.triu(a, 1)
-
+   * :download:`../notebooks/breakout1.ipynb`
